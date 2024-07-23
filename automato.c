@@ -3,9 +3,8 @@
 #include <stdio.h>
 #include <string.h>
 
-// #define VIVO  1
-// #define MORTO 0
 
+//*Pronta
 int** alocarReticulado(int x)
 {
     int** reticulado = (int**) malloc(x * sizeof(int*));
@@ -16,6 +15,8 @@ int** alocarReticulado(int x)
     return reticulado;
 }
 
+
+//*Pronta
 void desalocarReticulado (int** reticulado, int x)
 {
     for (int i = 0; i < x; i++)
@@ -25,16 +26,8 @@ void desalocarReticulado (int** reticulado, int x)
     free(reticulado);
 }
 
-void setCelula(Automato* automato, int x, int y, int valor)
-{
-    automato->reticulado[x][y] = valor;
-}
 
-// int getCelula(Automato* automato, int x, int y)
-// {
-//     return automato->reticulado[x][y];
-// }
-
+//*Pronta
 void LeituraReticulado (Automato* automato, char* nomeArquivo)
 {
     FILE* arquivo = fopen(nomeArquivo, "r");
@@ -58,6 +51,8 @@ void LeituraReticulado (Automato* automato, char* nomeArquivo)
     fclose(arquivo);
 }
 
+
+//*Pronta
 void imprimeReticulado(Automato* automato)
 {
     for (int i = 0; i < automato->tamanho; i++)
@@ -72,7 +67,7 @@ void imprimeReticulado(Automato* automato)
 }
 
 
-//checks how many cells are alive in the neighborhood of a cell, non-existent cells are considered dead
+//*Pronta
 int vizinhosVivos(Automato* automato, int x, int y)
 {
     int vizinhos = 0;
@@ -96,4 +91,8 @@ int vizinhosVivos(Automato* automato, int x, int y)
     return vizinhos;
 }
 
-// void evoluirReticulado 
+//!Não pronta
+void evoluirReticulado(Automato* automato)
+{
+    return;
+}

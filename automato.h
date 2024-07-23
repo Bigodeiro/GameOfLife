@@ -16,7 +16,7 @@ void desalocarReticulado(int**, int);
 void LeituraReticulado(Automato*, char*);
 void imprimeReticulado(Automato*);
 int vizinhosVivos(Automato*, int, int);
-void setCelula(Automato* automato, int x, int y, int valor);
+void evoluirReticulado(Automato*);
 // int getCelula(Automato* automato, int x, int y, int valor);
 
 

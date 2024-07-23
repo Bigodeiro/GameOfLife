@@ -1,26 +1,21 @@
 #include "automato.h"
+#include <stdio.h>
 
+//! Estruturar o main
 int main(int argc, char const *argv[])
 {
 
     Automato automato;
 
-    automato.tamanho = 3;
-    automato.geracao = 0;
-    automato.reticulado = alocarReticulado(automato.tamanho);
+    LeituraReticulado(&automato, "entrada.txt");
 
-    for (int i = 0; i < automato.tamanho; i++)
-    {
-        for (int j = 0; j < automato.tamanho; j++)
-        {
-            automato.reticulado[i][j] = 1;
-        }
-    }
 
-    printf("%d", vizinhosVivos(&automato, 1, 1));
+    
 
+    printf("matriz:\n");
     imprimeReticulado(&automato);
 
+    printf("vizinhos proximos da celular do meio: %d\n", vizinhosVivos(&automato, 1, 1));
 
     desalocarReticulado(automato.reticulado, automato.tamanho);
 
