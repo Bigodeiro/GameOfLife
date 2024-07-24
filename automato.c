@@ -4,7 +4,6 @@
 #include <string.h>
 
 
-//*Pronta
 int** alocarReticulado(int x)
 {
     int** reticulado = (int**) malloc(x * sizeof(int*));
@@ -16,7 +15,6 @@ int** alocarReticulado(int x)
 }
 
 
-//*Pronta
 void desalocarReticulado (int** reticulado, int x)
 {
     for (int i = 0; i < x; i++)
@@ -27,13 +25,12 @@ void desalocarReticulado (int** reticulado, int x)
 }
 
 
-//*Pronta
-void LeituraReticulado (Automato* automato, char* nomeArquivo)
+void LeituraReticulado (Automato* automato, const char* nomeArquivo)
 {
     FILE* arquivo = fopen(nomeArquivo, "r");
     if (arquivo == NULL)
     {
-        printf("Erro ao abrir o arquivo\n");
+        printf("Verifique o nome do arquivo e tente novamente\n");
         exit(1);
     }
 
@@ -52,7 +49,6 @@ void LeituraReticulado (Automato* automato, char* nomeArquivo)
 }
 
 
-//*Pronta
 void imprimeReticulado(Automato* automato)
 {
     for (int i = 0; i < automato->tamanho; i++)
@@ -67,7 +63,6 @@ void imprimeReticulado(Automato* automato)
 }
 
 
-//*Pronta
 int vizinhosVivos(Automato* automato, int x, int y)
 {
     int vizinhos = 0;
@@ -91,8 +86,63 @@ int vizinhosVivos(Automato* automato, int x, int y)
     return vizinhos;
 }
 
-//!Não pronta
+
+void copiarReticulado(Automato* automato, int** reticuladoAux)
+{
+    for (int i = 0; i < automato->tamanho; i++)
+    {
+        for (int j = 0; j < automato->tamanho; j++)
+        {
+            automato->reticulado[i][j] = reticuladoAux[i][j];
+        }
+    }
+}
+
+
 void evoluirReticulado(Automato* automato)
 {
-    return;
+    if (automato->geracao == 0)
+    {
+        return;
+    }
+
+
+    int** reticuladoAux = alocarReticulado(automato->tamanho);
+    for (int i = 0; i < automato->tamanho; i++)
+    {
+        for (int j = 0; j < automato->tamanho; j++)
+        {
+            int vizinhos = vizinhosVivos(automato, i, j);
+            if (automato->reticulado[i][j] == 1)
+            {
+                if (vizinhos < 2 || vizinhos > 3)
+                {
+                    reticuladoAux[i][j] = 0;
+                }
+                else
+                {
+                    reticuladoAux[i][j] = 1;
+                }
+            }
+            else
+            {
+                if (vizinhos == 3)
+                {
+                    reticuladoAux[i][j] = 1;
+                }
+                else
+                {
+                    reticuladoAux[i][j] = 0;
+                }
+            }
+        }
+    }
+
+    copiarReticulado(automato, reticuladoAux);
+    automato->geracao--;
+
+    desalocarReticulado(reticuladoAux, automato->tamanho);
+
+    evoluirReticulado(automato);
 }
+

@@ -11,13 +11,14 @@ typedef struct automato
 }Automato;
 
 
-int** alocarReticulado(int);
-void desalocarReticulado(int**, int);
-void LeituraReticulado(Automato*, char*);
-void imprimeReticulado(Automato*);
-int vizinhosVivos(Automato*, int, int);
-void evoluirReticulado(Automato*);
-// int getCelula(Automato* automato, int x, int y, int valor);
+int** alocarReticulado( int );
+void desalocarReticulado( int**, int );
+void LeituraReticulado( Automato*, const char* );
+void imprimeReticulado( Automato* );
+int vizinhosVivos( Automato*, int, int );
+void evoluirReticulado( Automato* );
+void copiarReticulado( Automato* , int** );
+// int getCelula(Automato* automato, int x, int y, int valor );
 
 
 #endif // !AUTOMATO
