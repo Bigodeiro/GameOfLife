@@ -24,28 +24,20 @@ void desalocarReticulado (int** reticulado, int x)
 }
 
 
-void LeituraReticulado (Automato* automato, const char* nomeArquivo)
+void LeituraReticulado(Automato* automato)
 {
-    
-    FILE* arquivo = fopen(nomeArquivo, "r");
-    if (arquivo == NULL)
-    {
-        printf("Verifique o nome do arquivo e tente novamente\n");
-        exit(1);
-    }
+    scanf("%d", &automato->tamanho);
+    scanf("%d", &automato->geracao);
 
-    fscanf(arquivo, "%d %d", &automato->tamanho, &automato->geracao);
     automato->reticulado = alocarReticulado(automato->tamanho);
-
 
     for (int i = 0; i < automato->tamanho; i++)
     {
         for (int j = 0; j < automato->tamanho; j++)
         {
-            fscanf(arquivo, "%d", &automato->reticulado[i][j]);
+            scanf("%d", &automato->reticulado[i][j]);
         }
     }
-    fclose(arquivo);
 }
 
 

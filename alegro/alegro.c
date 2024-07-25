@@ -36,29 +36,20 @@ void desalocarReticulado (int** reticulado, int x)
     free(reticulado);
 }
 
-void LeituraReticulado (Automato* automato, const char* nomeArquivo)
+void LeituraReticulado(Automato* automato)
 {
-    
-    FILE* arquivo = fopen(nomeArquivo, "r");
-    if (arquivo == NULL)
-    {
-        printf("Nome fornecido: %s\n", nomeArquivo);
-        printf("Verifique o nome do arquivo e tente novamente\n");
-        exit(1);
-    }
+    scanf("%d", &automato->tamanho);
+    scanf("%d", &automato->geracao);
 
-    fscanf(arquivo, "%d %d", &automato->tamanho, &automato->geracao);
     automato->reticulado = alocarReticulado(automato->tamanho);
-
 
     for (int i = 0; i < automato->tamanho; i++)
     {
         for (int j = 0; j < automato->tamanho; j++)
         {
-            fscanf(arquivo, "%d", &automato->reticulado[i][j]);
+            scanf("%d", &automato->reticulado[i][j]);
         }
     }
-    fclose(arquivo);
 }
 
 void imprimeReticulado(Automato* automato)
@@ -208,7 +199,7 @@ int main (int argc, char const *argv[])
 
     Automato automato;
     
-    LeituraReticulado(&automato, argv[1]);
+    LeituraReticulado(&automato);
     int aux = automato.geracao;
     
     //*Incializações do allegro

@@ -11,7 +11,7 @@ typedef struct automato
 
 int** alocarReticulado( int );
 void desalocarReticulado( int**, int );
-void LeituraReticulado( Automato*, const char* );
+void LeituraReticulado( Automato*);
 void imprimeReticulado( Automato* );
 int vizinhosVivos( Automato*, int, int );
 void evoluirReticulado( Automato* );
