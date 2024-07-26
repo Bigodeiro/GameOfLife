@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
+//Aloca o reticulado
 int** alocarReticulado(int x)
 {
     int** reticulado = (int**) malloc(x * sizeof(int*));
@@ -15,7 +16,7 @@ int** alocarReticulado(int x)
     return reticulado;
 }
 
-
+//Desaloca o reticulado
 void desalocarReticulado (int** reticulado, int x)
 {
     for (int i = 0; i < x; i++)
@@ -25,7 +26,7 @@ void desalocarReticulado (int** reticulado, int x)
     free(reticulado);
 }
 
-
+//Lê o reticulado e armazena no automato
 void LeituraReticulado(Automato* automato)
 {
     scanf("%d", &automato->tamanho);
@@ -42,7 +43,7 @@ void LeituraReticulado(Automato* automato)
     }
 }
 
-
+//Imprime o reticulado formatado corretamente
 void imprimeReticulado(Automato* automato)
 {
     for (int i = 0; i < automato->tamanho; i++)
@@ -56,15 +57,17 @@ void imprimeReticulado(Automato* automato)
     }
 }
 
-//TODO: Comentar
+// Checa as 8 celulas ao redor da celula (x, y) e retorna quantas estao vivas
 int vizinhosVivos(Automato* automato, int x, int y)
 {
     int vizinhos = 0;
 
+    //Os for's abaixo percorrem as 8 celulas ao redor da celula (x, y) como se fosser uma matriz 3x3, sendo a celula (x, y) o centro(1, 1)
     for (int i = x - 1; i <= x + 1; i++)
     {
         for (int j = y - 1; j <= y + 1; j++)
         {
+            //Checa se a celula (i, j) está dentro do reticulado, evitando acessar posições inválidas
             if (i >= 0 && i < automato->tamanho && j >= 0 && j < automato->tamanho)
             {
                 if (automato->reticulado[i][j] == 1)
@@ -75,14 +78,15 @@ int vizinhosVivos(Automato* automato, int x, int y)
         }
     }
 
+    //Caso a celula em questão esteja viva, ela não deve ser contada
     if (automato->reticulado[x][y] == 1)
     {
-        vizinhos--;//!<-
+        vizinhos--;
     }
     return vizinhos;
 }
 
-
+//Copia um reticulado qualquer para o reticulado do automato
 void copiarReticulado(Automato* automato, int** reticuladoAux)
 {
     for (int i = 0; i < automato->tamanho; i++)
@@ -94,16 +98,16 @@ void copiarReticulado(Automato* automato, int** reticuladoAux)
     }
 }
 
-
+//Função princiapal que evolui o reticulado 
 void evoluirReticulado(Automato* automato)
 {
-    //! Caso Base
+    // Caso Base
     if (automato->geracao == 0)
     {
         return;
     }
 
-    //!Caso geral
+    //Caso geral
     int** reticuladoAux = alocarReticulado(automato->tamanho);
     for (int i = 0; i < automato->tamanho; i++)
     {
@@ -135,12 +139,11 @@ void evoluirReticulado(Automato* automato)
         }
     }
 
-    //!Processamento auxiliar
+    //Processamento auxiliar
     copiarReticulado(automato, reticuladoAux);
     automato->geracao--;
     desalocarReticulado(reticuladoAux, automato->tamanho);
 
-    //!Chamada recursiva
+    //Chamada recursiva
     evoluirReticulado(automato);
 }
-

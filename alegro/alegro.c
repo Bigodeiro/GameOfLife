@@ -9,50 +9,6 @@
 #define LARGURA_TELA 512
 #define ALTURA_TELA 512
 
-void evoluirReticulado1vez(Automato* automato)
-{
-    if (automato->geracao == 0)
-    {
-        return;
-    }
-
-
-    int** reticuladoAux = alocarReticulado(automato->tamanho);
-    for (int i = 0; i < automato->tamanho; i++)
-    {
-        for (int j = 0; j < automato->tamanho; j++)
-        {
-            int vizinhos = vizinhosVivos(automato, i, j);
-            if (automato->reticulado[i][j] == 1)
-            {
-                if (vizinhos < 2 || vizinhos > 3)
-                {
-                    reticuladoAux[i][j] = 0;
-                }
-                else
-                {
-                    reticuladoAux[i][j] = 1;
-                }
-            }
-            else
-            {
-                if (vizinhos == 3)
-                {
-                    reticuladoAux[i][j] = 1;
-                }
-                else
-                {
-                    reticuladoAux[i][j] = 0;
-                }
-            }
-        }
-    }
-
-    copiarReticulado(automato, reticuladoAux);
-    automato->geracao--;
-
-}
-
 int main (int argc, char const *argv[])
 {
     Automato automato;
@@ -91,7 +47,16 @@ int main (int argc, char const *argv[])
         //*Desenha o reticulado
         if(event.type == ALLEGRO_EVENT_TIMER)
         {
-            evoluirReticulado1vez(&automato);
+            if(automato.geracao == 0)
+            {
+                break;
+            }
+
+            int aux = automato.geracao;
+            automato.geracao = 1;
+            evoluirReticulado(&automato);
+            automato.geracao = aux - 1;
+
             for (int i = 0; i < automato.tamanho; i++)
             {
                 for (int j = 0; j < automato.tamanho; j++)
